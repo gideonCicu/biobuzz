@@ -20,7 +20,8 @@ public interface Action {
      void stop();
 
      void setStarted(boolean started);
-     void setFinished(boolean finished);;
+
+     void setFinished(boolean finished);
 
      default void interrupt() {
           if (isInterruptible()) {

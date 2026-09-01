@@ -44,6 +44,10 @@ public class Actions {
         return new SimpleAction(action);
     }
 
+    public static Action simply(Runnable action, String name){
+        return new SimpleAction(action, name);
+    }
+
     public static Action delay(int delay){
         return new WaitAction(delay);
     }
