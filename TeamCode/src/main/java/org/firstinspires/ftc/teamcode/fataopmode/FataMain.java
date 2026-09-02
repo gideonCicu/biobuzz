@@ -4,14 +4,15 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.fataopmode.api.opmode.AllianceColour;
 import org.firstinspires.ftc.teamcode.fataopmode.api.opmode.FataOpMode;
+import org.firstinspires.ftc.teamcode.fataopmode.api.robot.FataRobot;
 import utility.actionBase.ActionScheduler;
 import com.pedropathing.util.PoseHistory;
 
 public class FataMain {
     private static FataOpMode currentOpMode;
     private static AllianceColour allianceColour;
-
     private static ActionScheduler actionScheduler = new ActionScheduler();
+    private static final FataRobot robot = new FataRobot();
 
     private static PoseHistory poseHistory;
 

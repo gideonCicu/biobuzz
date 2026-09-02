@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.fataopmode.api.opmode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import org.firstinspires.ftc.teamcode.fataopmode.api.robot.FataRobot;
 
 public class FataOpMode extends LinearOpMode {
 
@@ -20,6 +21,7 @@ public class FataOpMode extends LinearOpMode {
         while (opModeInInit()) {
 //            INIT_LOOP
             stage = OpModeStage.INIT_LOOP;
+            
         }
 
         waitForStart();
