@@ -8,13 +8,9 @@ public class SliceImpl implements Slice {
     private long endTime = -1;
     private final String name;
 
-    public SliceImpl(boolean enabled) {
-        this(enabled, null);
-    }
-
     public SliceImpl(boolean enabled, String name) {
         this.enabled = enabled;
-        this.name = name == null ? this.getClass().getSimpleName() : name;
+        this.name = name;
     }
 
     @Override
@@ -40,7 +36,7 @@ public class SliceImpl implements Slice {
 
         this.endTime = System.currentTimeMillis();
 
-        Log.i(this.getClass().getName(),
+        Log.i(name,
             "start time = " + this.getStartTime() +
                     ", runtime = " + this.getRunningTime() +
                     ", end time = " + this.getEndTime() +

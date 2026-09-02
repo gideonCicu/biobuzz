@@ -16,7 +16,7 @@ public abstract class AbstractAction implements Action, SliceContainer {
     }
 
     public AbstractAction(boolean enabled) {
-        slice = new SliceImpl(enabled);
+        slice = new SliceImpl(enabled, this.getClass().getSimpleName());
     }
 
     public AbstractAction(boolean enabled, String name) {
