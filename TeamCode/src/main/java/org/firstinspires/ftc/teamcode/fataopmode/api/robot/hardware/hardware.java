@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.seattlesolvers.solverslib.hardware.SensorColor;
 import com.seattlesolvers.solverslib.hardware.SensorRevColorV3;
+import com.seattlesolvers.solverslib.hardware.motors.CRServoEx;
 import com.seattlesolvers.solverslib.hardware.motors.Motor;
 import com.seattlesolvers.solverslib.hardware.motors.MotorEx;
 import com.seattlesolvers.solverslib.hardware.servos.ServoEx;
@@ -68,6 +69,8 @@ public interface hardware {
         }
         return crServo;
     }
+
+//    default CRServoEx geCRServoEX(String name, boolean enabled, String encodreID, )
 
     default DigitalChannel getDigitalChannel(String name) {
         return getDigitalChannel(name,isHardwareEnabled());

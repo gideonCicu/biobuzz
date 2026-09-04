@@ -2,19 +2,18 @@ package utility.threads;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class ThreadedCalculationRunner {
+public class ThreadedRunner {
     public static long safety = 5;
 
-    private static final CopyOnWriteArrayList<
-            ThreadedCalculation<?>> threadedCalculations =
-            new CopyOnWriteArrayList<>();
+    private static final CopyOnWriteArrayList<ThreadedRunnable>
+            tasks = new CopyOnWriteArrayList<>();
 
     private static Thread runnerThread;
 
-    private ThreadedCalculationRunner() {}
+    private ThreadedRunner() {}
 
-    public static void add(ThreadedCalculation<?> calculation) {
-        threadedCalculations.add(calculation);
+    public static void add(ThreadedRunnable runnable) {
+        tasks.add(runnable);
     }
 
     public static synchronized Thread start() {
@@ -27,8 +26,8 @@ public class ThreadedCalculationRunner {
 
             while (!Thread.currentThread().isInterrupted()) {
 
-                for (ThreadedCalculation<?> calculation :
-                        threadedCalculations) {
+                for (ThreadedRunnable calculation :
+                        tasks) {
 
                     calculation.run();
                 }
@@ -41,7 +40,7 @@ public class ThreadedCalculationRunner {
             }
         });
 
-        runnerThread.setName("ThreadedCalculationRunner");
+        runnerThread.setName("ThreadedRunner");
         runnerThread.start();
 
         return runnerThread;

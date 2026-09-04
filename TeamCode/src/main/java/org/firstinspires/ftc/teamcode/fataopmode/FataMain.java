@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.fataopmode;
 
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
+import com.bylazar.telemetry.PanelsTelemetry;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.fataopmode.api.opmode.AllianceColour;
@@ -44,5 +46,42 @@ public class FataMain {
         return actionScheduler;
     }
 
+    public static void init(FataOpMode opMode){
+        actionScheduler.clear();
+
+        currentOpMode = opMode;
+
+        currentOpMode.telemetry = new MultipleTelemetry(
+                PanelsTelemetry.INSTANCE.getFtcTelemetry(),
+                currentOpMode.telemetry
+        );
+
+        robot.init();
+
+    }
+
+    public static void initLoop(){
+        PanelsTelemetry.INSTANCE.getTelemetry().update(currentOpMode.telemetry);
+    }
+
+    public static void play(){
+        robot.play();
+    }
+
+    public static void loop(){
+        actionScheduler.update();
+
+        robot.loop();
+
+        PanelsTelemetry.INSTANCE.getTelemetry().update(currentOpMode.telemetry);
+    }
+
+    public static void stop(){
+        actionScheduler.clear();
+
+        robot.stop();
+
+        currentOpMode = null;
+    }
 
 }

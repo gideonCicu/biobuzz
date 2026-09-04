@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.fataopmode.api.robot;
 
 import com.qualcomm.hardware.lynx.LynxModule;
+import com.seattlesolvers.solverslib.photon.PhotonCore;
 import org.firstinspires.ftc.teamcode.fataopmode.FataMain;
 import org.firstinspires.ftc.teamcode.fataopmode.api.robot.hardware.Subsystem;
 
@@ -16,11 +17,10 @@ public class FataRobot {
             s.hardwareInit();
         for (Subsystem s : subsystems) if (s.isEnabled()) s.opModeInit();
 
-        List<LynxModule> allHubs = FataMain.getCurrentOpMode().hardwareMap.getAll(LynxModule.class);
-
-        for (LynxModule hub : allHubs) {
-            hub.setBulkCachingMode(LynxModule.BulkCachingMode.AUTO);
-        }
+        PhotonCore.CONTROL_HUB.setBulkCachingMode(LynxModule.BulkCachingMode.AUTO);
+        PhotonCore.EXPANSION_HUB.setBulkCachingMode(LynxModule.BulkCachingMode.AUTO);
+        PhotonCore.experimental.setMaximumParallelCommands(8);
+        PhotonCore.PARALLELIZE_SERVOS = false;
     }
 
     public void play() {
@@ -29,6 +29,8 @@ public class FataRobot {
 
     public void loop() {
         for (Subsystem s : subsystems) if (s.isEnabled()) s.loop();
+        PhotonCore.CONTROL_HUB.clearBulkCache();
+        PhotonCore.EXPANSION_HUB.clearBulkCache();
     }
 
     public void stop() {

@@ -1,13 +1,13 @@
 package utility.actionBase;
 
+import org.firstinspires.ftc.teamcode.fataopmode.FataMain;
 import utility.actionBase.runners.ParallelActionRunner;
 import utility.actionBase.runners.RaceActionRunner;
 import utility.actionBase.runners.SequentialActionRunner;
 
 import java.util.function.BooleanSupplier;
 
-import static utility.actionBase.actions.Actions.delay;
-import static utility.actionBase.actions.Actions.waitUntil;
+import static utility.actionBase.actions.Actions.*;
 
 
 public interface Action {
@@ -49,8 +49,16 @@ public interface Action {
           return new RaceActionRunner(this, waitUntil(condition));
      }
 
+     default void schedule(){
+          FataMain.getActionScheduler().schedule(this);
+     }
+
      default Action after(int time){
           return delay(time).then(this);
+     }
+
+     static Action empty() {
+          return simply(() -> {});
      }
 
 }

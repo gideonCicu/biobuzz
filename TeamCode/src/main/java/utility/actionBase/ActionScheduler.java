@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class ActionScheduler {
     private final ArrayList<Action> actions = new ArrayList<>();
 
-    void schedule(Action action){
+    public void schedule(Action action){
         if (actions.contains(action)) throw new UnsupportedOperationException(
                 "Trying to schedule an already scheduled action instance of type " + action.getClass().getName()
         );
@@ -13,7 +13,7 @@ public class ActionScheduler {
         actions.add(action);
     }
 
-    void update(){
+    public void update(){
         for (Action action : actions){
             if (!action.isStarted()) action.start();
 
@@ -22,5 +22,9 @@ public class ActionScheduler {
             if (action.isFinished()) action.stop();
         }
         actions.removeIf(Action::isFinished);
+    }
+
+    public void clear(){
+        actions.clear();
     }
 }

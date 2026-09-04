@@ -1,6 +1,6 @@
 package utility.threads;
 
-public class ThreadedCalculation<T> {
+public class ThreadedCalculation<T> implements ThreadedRunnable {
 
     private T lastResult;
     private final long refreshRate;
@@ -20,7 +20,7 @@ public class ThreadedCalculation<T> {
         this.calculation = calculation;
     }
 
-    public synchronized void run() {
+    public void run() {
         long currentTime = System.currentTimeMillis();
 
         if (currentTime - lastUpdate < refreshRate) {
@@ -29,8 +29,16 @@ public class ThreadedCalculation<T> {
 
         lastUpdate = currentTime;
 
+        T previous;
+
         synchronized (objectLock) {
-            lastResult = calculation.calculate(lastResult);
+            previous = lastResult;
+        }
+
+        T next = calculation.calculate(previous);
+
+        synchronized (objectLock) {
+            lastResult = next;
         }
     }
 
